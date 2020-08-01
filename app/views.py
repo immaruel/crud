@@ -23,10 +23,10 @@ def create(request):
 
 def updatePost(request, pk):
     blogs = Blog.objects.get(id=pk)
-    form = CreateForm(instance=blog)
+    form = CreateForm(instance=blogs)
 
     if request.method == 'POST':
-        form = CreateForm(request.POST, instance=blog)
+        form = CreateForm(request.POST, instance=blogs)
         if form.is_valid():
             form.save()
             return redirect('/')
@@ -37,8 +37,8 @@ def updatePost(request, pk):
 def deletePost(request, pk):
     blogs = Blog.objects.get(id=pk)
     if request.method == "POST":
-        blog.delete()
+        blogs.delete()
         return redirect('/')
 
-    context = {'item':blog}
+    context = {'item':blogs}
     return render(request, 'app/delete.html',context)
